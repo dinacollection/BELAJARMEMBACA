@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial Hosting — Dunia Baca DCdhina collection</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f8f6f1;color:#1a2b3c;line-height:1.7}
+.wrap{max-width:780px;margin:0 auto;padding:24px 20px 80px}
+header{text-align:center;padding:48px 0 36px;border-bottom:3px solid #1a2b3c}
+header h1{font-size:28px;font-weight:900;letter-spacing:-.03em}
+header h1 span{color:#ff7a59}
+header p{margin-top:8px;color:#5e6f80;font-size:15px}
+.badge{display:inline-block;margin-top:14px;padding:6px 14px;border-radius:8px;background:#ff7a59;color:#fff;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+
+/* overview */
+.overview{margin:36px 0;padding:24px;border:2px solid #1a2b3c;border-radius:16px;background:#fff}
+.overview h2{font-size:18px;margin-bottom:12px}
+.overview ol{padding-left:22px}
+.overview li{margin-bottom:6px;font-weight:600;font-size:15px}
+.overview li span{color:#5e6f80;font-weight:400}
+
+/* steps */
+.step{margin-top:40px;padding:28px 24px;border:2px solid #e2e0db;border-radius:18px;background:#fff;position:relative}
+.step-num{position:absolute;top:-16px;left:20px;width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#1a2b3c;color:#fff;font-size:14px;font-weight:900}
+.step h2{font-size:20px;font-weight:900;margin-bottom:4px}
+.step .subtitle{color:#6b7c8d;font-size:14px;font-weight:600;margin-bottom:16px}
+
+/* mock UI */
+.mock{margin:16px 0;border:2px solid #d1cfc9;border-radius:12px;overflow:hidden;font-size:13px}
+.mock-bar{padding:8px 14px;background:#24292f;color:#c9d1d9;font-weight:700;display:flex;align-items:center;gap:8px}
+.mock-bar .dot{width:10px;height:10px;border-radius:50%}
+.mock-bar .dot.r{background:#ff5f57}.mock-bar .dot.y{background:#febc2e}.mock-bar .dot.g{background:#28c840}
+.mock-body{padding:16px;background:#f6f8fa}
+.mock-row{display:flex;align-items:center;gap:10px;padding:10px 14px;margin:6px 0;border-radius:10px;background:#fff;border:1.5px solid #e1ddd7}
+.mock-row.highlight{border-color:#ff7a59;background:#fff8f5;box-shadow:0 0 0 3px rgba(255,122,89,.15)}
+.mock-icon{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0}
+.mock-icon.folder{background:#54aeff}
+.mock-icon.file{background:#8b949e}
+.mock-icon.yml{background:#2ea44f}
+.mock-label{font-weight:700}
+.mock-label small{display:block;color:#8b949e;font-weight:500;font-size:11px}
+
+.mock-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border:1.5px solid #d0d7de;border-radius:8px;background:#f6f8fa;color:#24292f;font-size:13px;font-weight:700;cursor:default}
+.mock-btn.green{background:#2ea44f;border-color:#2ea44f;color:#fff}
+.mock-btn.primary{background:#1a2b3c;border-color:#1a2b3c;color:#fff}
+
+.mock-tab{display:flex;gap:0;border-bottom:2px solid #d0d7de;margin-bottom:14px}
+.mock-tab span{padding:8px 16px;font-weight:700;font-size:13px;border-bottom:2px solid transparent;margin-bottom:-2px;color:#656d76}
+.mock-tab span.active{color:#1a2b3c;border-bottom-color:#ff7a59}
+
+.mock-select{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1.5px solid #d0d7de;border-radius:8px;background:#fff;font-size:13px;font-weight:700}
+.mock-select.good{border-color:#2ea44f;background:#dafbe1;color:#1a7f37}
+.mock-select.bad{border-color:#cf222e;background:#ffebe9;color:#cf222e}
+
+.arrow{font-size:18px;color:#ff7a59;font-weight:900;margin:0 4px}
+
+.check-list{list-style:none;padding:0;margin:12px 0}
+.check-list li{padding:8px 0;padding-left:28px;position:relative;font-weight:600;font-size:14px}
+.check-list li::before{content:"✅";position:absolute;left:0;top:8px}
+
+.warning{margin:16px 0;padding:14px 18px;border-radius:12px;background:#fff3cd;border:2px solid #ffc107;font-size:14px;font-weight:600}
+.warning strong{color:#856404}
+.warning.error{background:#ffebe9;border-color:#cf222e}
+.warning.error strong{color:#cf222e}
+.warning.success{background:#dafbe1;border-color:#2ea44f}
+.warning.success strong{color:#1a7f37}
+
+.tip{margin:16px 0;padding:14px 18px;border-radius:12px;background:#dbeafe;border:2px solid #3b82f6;font-size:14px;font-weight:600}
+.tip strong{color:#1e40af}
+
+/* flow diagram */
+.flow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:20px 0;padding:16px;background:#f0eeea;border-radius:12px}
+.flow-box{padding:10px 16px;border-radius:10px;background:#fff;border:2px solid #1a2b3c;font-size:13px;font-weight:800;text-align:center}
+.flow-box.src{background:#dbeafe;border-color:#3b82f6}
+.flow-box.build{background:#fef3c7;border-color:#f59e0b}
+.flow-box.deploy{background:#dafbe1;border-color:#2ea44f}
+.flow-arrow{font-size:22px;color:#1a2b3c}
+
+footer{margin-top:60px;padding:20px;text-align:center;border-top:2px solid #e2e0db;color:#8b949e;font-size:12px;font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1><span>DC</span>dhina collection</h1>
+  <p>Tutorial Hosting Game "Dunia Baca" di GitHub Pages</p>
+  <span class="badge">Panduan Lengkap + Gambar</span>
+</header>
+
+<!-- OVERVIEW -->
+<div class="overview">
+  <h2>📋 Ringkasan 4 Langkah</h2>
+  <ol>
+    <li>Buat repository & upload file <span>— 2 menit</span></li>
+    <li>Aktifkan & jalankan GitHub Actions <span>— 1 menit</span></li>
+    <li>Setting GitHub Pages ke branch <code>gh-pages</code> <span>— 30 detik</span></li>
+    <li>Buka game! 🎉</li>
+  </ol>
+</div>
+
+<!-- WHY -->
+<div class="warning">
+  <strong>⚠️ Kenapa tadi layar putih?</strong><br>
+  GitHub Pages menampilkan file langsung dari branch <code>main</code>. Tapi file di <code>main</code> itu source code (TypeScript/React) yang <strong>tidak bisa dibaca browser</strong>. Harus di-<strong>build</strong> dulu menjadi HTML+JS biasa. Itulah tugas GitHub Actions — dia build otomatis dan taruh hasilnya di branch <code>gh-pages</code>.
+</div>
+
+<div class="flow">
+  <div class="flow-box src">📁 Source Code<br><small>branch: main</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box build">⚙️ GitHub Actions<br><small>build otomatis</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box deploy">🌐 Game Jadi!<br><small>branch: gh-pages</small></div>
+</div>
+
+<!-- STEP 1 -->
+<div class="step">
+  <span class="step-num">1</span>
+  <h2>Buat Repository & Upload File</h2>
+  <p class="subtitle">Buat repository baru di GitHub, lalu upload semua file proyek</p>
+
+  <p style="font-weight:600;margin-bottom:10px">Buka <a href="https://github.com/new" target="_blank">github.com/new</a> dan buat repository:</p>
+  
+  <div class="mock">
+    <div class="mock-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span> github.com/new</div>
+    <div class="mock-body">
+      <div style="margin-bottom:10px"><strong>Repository name:</strong> <code>BELAJARMEMBACA</code></div>
+      <div style="margin-bottom:10px"><strong>Visibility:</strong> ✅ Public</div>
+      <div><span class="mock-btn green">Create repository</span></div>
+    </div>
+  </div>
+
+  <p style="font-weight:600;margin:16px 0 10px">Lalu upload file. Isi repository harus seperti ini:</p>
+
+  <div class="mock">
+    <div class="mock-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span> dinacollection / BELAJARMEMBACA</div>
+    <div class="mock-body">
+      <div class="mock-row highlight">
+        <div class="mock-icon folder">📁</div>
+        <div class="mock-label">.github<small>berisi workflows/deploy-pages.yml — INI WAJIB ADA!</small></div>
+      </div>
+      <div class="mock-row">
+        <div class="mock-icon folder">📁</div>
+        <div class="mock-label">public<small>icon.svg, manifest.webmanifest</small></div>
+      </div>
+      <div class="mock-row">
+        <div class="mock-icon folder">📁</div>
+        <div class="mock-label">src<small>App.tsx, index.css, main.tsx</small></div>
+      </div>
+      <div class="mock-row">
+        <div class="mock-icon file">📄</div>
+        <div class="mock-label">index.html</div>
+      </div>
+      <div class="mock-row">
+        <div class="mock-icon file">📄</div>
+        <div class="mock-label">package.json</div>
+      </div>
+      <div class="mock-row">
+        <div class="mock-icon file">📄</div>
+        <div class="mock-label">tsconfig.json</div>
+      </div>
+      <div class="mock-row">
+        <div class="mock-icon file">📄</div>
+        <div class="mock-label">vite.config.ts</div>
+      </div>
+      <div class="mock-row">
+        <div class="mock-icon file">📄</div>
+        <div class="mock-label">.gitignore</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning error">
+    <strong>❌ JANGAN upload folder <code>node_modules</code></strong><br>
+    Folder itu sangat besar dan tidak perlu. GitHub Actions akan menginstallnya sendiri.
+  </div>
+
+  <div class="tip">
+    <strong>💡 Cara upload:</strong> Di halaman repository yang masih kosong, klik <strong>"uploading an existing file"</strong> lalu drag & drop semua file dan folder (kecuali <code>node_modules</code>). Pastikan folder <code>.github</code> ikut ter-upload!
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <span class="step-num">2</span>
+  <h2>Aktifkan & Jalankan GitHub Actions</h2>
+  <p class="subtitle">Actions akan build source code menjadi game yang bisa dijalankan browser</p>
+
+  <p style="font-weight:600;margin-bottom:10px">2a. Buka tab <strong>Actions</strong> di repository:</p>
+
+  <div class="mock">
+    <div class="mock-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span> dinacollection / BELAJARMEMBACA</div>
+    <div class="mock-body">
+      <div class="mock-tab">
+        <span>Code</span>
+        <span>Issues</span>
+        <span>Pull requests</span>
+        <span class="active">▶ Actions</span>
+        <span>Settings</span>
+      </div>
+      <div style="padding:12px;text-align:center;background:#fff;border-radius:10px;border:1.5px solid #e1ddd7">
+        <p style="font-weight:700;margin-bottom:10px">Workflows aren't being run on this repository</p>
+        <span class="mock-btn green">I understand my workflows, go ahead and enable them</span>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-weight:600;margin:20px 0 10px">2b. Jika workflow tidak jalan otomatis, jalankan manual:</p>
+
+  <div class="mock">
+    <div class="mock-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span> Actions</div>
+    <div class="mock-body">
+      <div style="display:flex;gap:16px">
+        <div style="width:200px;padding:10px;background:#fff;border-radius:10px;border:1.5px solid #e1ddd7">
+          <div style="font-size:11px;color:#656d76;font-weight:700;margin-bottom:6px">All workflows</div>
+          <div style="padding:6px 10px;background:#fff8f5;border-radius:6px;border:1.5px solid #ff7a59;font-weight:700;font-size:12px">Deploy Dunia Baca to GitHub Pages</div>
+        </div>
+        <div style="flex:1;padding:10px;background:#fff;border-radius:10px;border:1.5px solid #e1ddd7">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <strong style="font-size:14px">Deploy Dunia Baca to GitHub Pages</strong>
+            <span class="mock-btn primary">Run workflow ▾</span>
+          </div>
+          <div style="font-size:12px;color:#656d76">This workflow has a <code>workflow_dispatch</code> event trigger.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-weight:600;margin:20px 0 10px">2c. Tunggu sampai muncul ✅ hijau:</p>
+
+  <div class="mock">
+    <div class="mock-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span> Actions</div>
+    <div class="mock-body">
+      <div class="mock-row" style="border-color:#2ea44f;background:#dafbe1">
+        <div style="font-size:18px">✅</div>
+        <div class="mock-label">Deploy Dunia Baca to GitHub Pages<small>main — 1 minute ago</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning success">
+    <strong>✅ Setelah berhasil</strong>, branch baru bernama <code>gh-pages</code> otomatis dibuat. Branch ini berisi game yang sudah di-build dan siap ditampilkan.
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <span class="step-num">3</span>
+  <h2>Setting GitHub Pages</h2>
+  <p class="subtitle">Arahkan Pages ke branch gh-pages yang berisi hasil build</p>
+
+  <p style="font-weight:600;margin-bottom:10px">Buka <strong>Settings</strong> → <strong>Pages</strong> (di sidebar kiri):</p>
+
+  <div class="mock">
+    <div class="mock-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span> Settings → Pages</div>
+    <div class="mock-body">
+      <div style="margin-bottom:14px">
+        <div style="font-size:12px;color:#656d76;font-weight:700;margin-bottom:6px">Build and deployment</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px">Source</div>
+        <div class="mock-select">Deploy from a branch ▾</div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px">Branch</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="mock-select bad">main ▾</div>
+          <span class="arrow">✏️ ubah ke →</span>
+          <div class="mock-select good">gh-pages ▾</div>
+          <div class="mock-select">/ (root) ▾</div>
+          <span class="mock-btn primary">Save</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning error">
+    <strong>❌ SALAH: Branch = <code>main</code></strong> → ini yang menyebabkan layar putih!<br>
+    Source code di main tidak bisa dibaca browser langsung.
+  </div>
+  <div class="warning success">
+    <strong>✅ BENAR: Branch = <code>gh-pages</code></strong> → branch ini berisi game yang sudah di-build.<br>
+    Pilih <code>/ (root)</code> untuk folder, lalu klik <strong>Save</strong>.
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+  <span class="step-num">4</span>
+  <h2>Buka Game! 🎉</h2>
+  <p class="subtitle">Tunggu 1-2 menit setelah Save, lalu buka URL game</p>
+
+  <div class="mock">
+    <div class="mock-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span> 🌐 dinacollection.github.io/BELAJARMEMBACA/</div>
+    <div class="mock-body" style="text-align:center;padding:30px;background:#fffaf0">
+      <div style="font-size:42px;font-weight:950;letter-spacing:-.04em;color:#1a2b3c"><span style="color:#ff7a59">DC</span>dhina<br>collection</div>
+      <div style="margin-top:8px;font-size:16px;font-weight:800;color:#1a2b3c">Baca, pilih, dan kumpulkan bintang ⭐</div>
+      <div style="margin-top:16px"><span class="mock-btn primary" style="font-size:16px;padding:12px 24px">Mulai level 1 →</span></div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>💡 Jika belum muncul:</strong> tunggu 2-3 menit lalu hard refresh — tekan <code>Ctrl + Shift + R</code> (komputer) atau <code>tahan tombol refresh</code> (HP).
+  </div>
+</div>
+
+<!-- UPDATE FLOW -->
+<div class="step" style="border-color:#3b82f6">
+  <span class="step-num" style="background:#3b82f6">💡</span>
+  <h2>Kalau Mau Update Game</h2>
+  <p class="subtitle">Setiap kali push kode baru ke main, Actions otomatis rebuild</p>
+
+  <div class="flow">
+    <div class="flow-box src">Push ke main</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box build">Actions jalan otomatis</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box deploy">gh-pages terupdate</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box deploy">Game terupdate! ✅</div>
+  </div>
+  <p style="font-size:14px;font-weight:600;color:#5e6f80">Tidak perlu setting ulang. Cukup push dan tunggu Actions selesai.</p>
+</div>
+
+<!-- CHECKLIST -->
+<div class="step" style="border-color:#2ea44f">
+  <span class="step-num" style="background:#2ea44f">✓</span>
+  <h2>Checklist Sebelum Buka Game</h2>
+  <p class="subtitle">Pastikan semua ini sudah benar</p>
+  <ul class="check-list">
+    <li>Folder <code>.github/workflows/</code> ada di repository</li>
+    <li>File <code>deploy-pages.yml</code> ada di dalam folder tersebut</li>
+    <li>Tab Actions: workflow sudah berjalan dan ✅ hijau</li>
+    <li>Branch <code>gh-pages</code> sudah muncul di daftar branch</li>
+    <li>Settings → Pages → Branch = <strong>gh-pages</strong> (BUKAN main)</li>
+    <li>Folder <code>node_modules</code> TIDAK di-upload</li>
+  </ul>
+</div>
+
+<footer>
+  DCdhina collection — Dunia Baca 🌟<br>
+  Belajar membaca sambil bermain
+</footer>
+
+</div>
+</body>
+</html>
